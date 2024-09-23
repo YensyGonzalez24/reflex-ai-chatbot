@@ -6,9 +6,9 @@ export const GET = async (request: NextRequest, { params }: Params) => {
   try {
     const chatId = params.id;
 
-    const userId = await getMessagesByChatId({ chatId });
+    const messages = await getMessagesByChatId({ chatId });
 
-    const response = NextResponse.json({ userId }, { status: 200 });
+    const response = NextResponse.json({ messages }, { status: 200 });
 
     return response;
   } catch (error) {

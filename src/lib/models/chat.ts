@@ -24,13 +24,11 @@ const getAllChats = async () => {
   }
 };
 
-const getChatsByEmail = async ({ email }: { email: string }) => {
+const getChatsByUserId = async ({ userId }: { userId: string }) => {
   try {
     const chat = await prisma.chat.findMany({
       where: {
-        user: {
-          email,
-        },
+        userId,
       },
     });
 
@@ -40,4 +38,4 @@ const getChatsByEmail = async ({ email }: { email: string }) => {
   }
 };
 
-export { createChat, getAllChats, getChatsByEmail };
+export { createChat, getAllChats, getChatsByUserId };

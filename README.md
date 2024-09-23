@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-
 ## Getting Started
 
-First, run the development server:
+### 1. Configure DB
+
+First, create a .env file to setup the DB configuration:
+
+```
+DATABASE_URL="mysql://user:password@localhost:3306/db_name"
+```
+
+- Replace:
+  - username: Your MySQL username (e.g., root).
+  - password: Your MySQL password.
+  - database_name: The name of the database for the project (e.g., chat_app).
+
+### 2. Initialize Prisma
+
+If Prisma is not already initialized, run:
+
+```npx prisma init```
+
+### 3. Run database migrations
+
+Apply the Prisma schema to your database:
+
+```
+npx prisma migrate dev --name init
+```
+
+### 3. Initialize development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 4. Using the aplpication
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- You will be prompted to submit your email, this will create a unique id for your emails and by consequence your chats.
+- Once you submit your email, you will be taken to the chat interface where you can input any message and will be answered with once of 6 differnt responses.
 
-## Learn More
+#### Future Features
 
-To learn more about Next.js, take a look at the following resources:
+Currently the app has the necesary api endpoints to return all the list of chats and thier respective messages. Though the UI to do this has not yet been implmemented, you may access the information in the following urls:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Get all chats
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+GET <http://localhost:3000/api/chat>
 
-## Deploy on Vercel
+- Get chats from a single user email
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+GET <http://localhost:3000/api/chat/[email]>
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Get all messages from a chat with the chat Id
+  
+GET <http://localhost:3000/api/messages/[chatId]>
